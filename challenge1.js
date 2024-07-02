@@ -1,11 +1,8 @@
-//redline creates an interface for reading from the input 
-let readline = require('readline');
-const { parseEnv } = require('util');
+// inorder to view the output you will need to install prompt on your terminal (sudo prompt install)
+const prompt = require('prompt');
 
-let rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});  
+prompt.start();
+ 
 
 //creating a function that will determine the grade of the stident using if statements
 function determineGrade(marks){
@@ -29,19 +26,24 @@ function determineGrade(marks){
 }
 
 function gradeDeterminer(){
-    rl. question('Enter the studen\'s marks(0-100):' , (input) => {
+    prompt.get(['marks'], function(err, result) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        const marks = parseFloat(result.marks)
+    
 
         // parseFloat() method parses a value as a string and returns the first number
-        const marks = parseFloat(input);
+       
 
         if (isNaN(marks)|| marks < 0 || marks > 100 ){
             console.log("Input not within range of 0 - 100");
-            rl.close()
             return;
         }
         const grade = determineGrade(marks);
         console . log(`The student's grade is: ${grade}`);
-        rl.close()
+        
     
     });
 

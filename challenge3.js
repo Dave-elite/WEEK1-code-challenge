@@ -1,26 +1,24 @@
-//redline creates an interface for reading from the input 
-const readline = require('readline');
+// inorder to view the output you will need to install prompt on your terminal (sudo prompt install)
+const prompt = require('prompt');
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-}); 
+prompt.start();
+
 //function to determine the grosssalary
 function calculategrossSalary(bsalary, benefits){
     //The Math.abs() method returns the absolute value of a number.
     let grossSalary = Math.abs(bsalary + benefits)
-    return grossSalary
+    return grossSalary;
 }
 //function to determine the nhif deductions 
 function calculatenhif(grossSalary){
     let nhif;
-    if(grossSalary < 6000){
+    if(grossSalary < 6000 && grossSalary >= 200){
         nhif = 150;
-    }else if(grossSalary < 12000 && grossSalary >= 6000){
+    }else if(grossSalary < 12000){
         nhif = 400;
-    }else if(grossSalary < 20000 && grossSalary >= 12000){
+    }else if(grossSalary < 20000){
         nhif = 750;
-    }else if(grossSalary < 30000 && grossSalary >= 20000){
+    }else if(grossSalary < 30000){
         nhif = 950;
     }else{
         nhif = 1500;
@@ -39,13 +37,18 @@ function calculatePayee(grossSalary, nhif, nssf){
     return payee;
 }
 //function to enable the user to input the salary amount to determine the total deductions and the net salary
-function SalaryGenerator(){
-    rl.question('Enter the Salary Amount(0-1000000):',(input) => {
-        const grossSalary = parseFloat(input);
+function salaryGenerator(){
+    prompt.get(['salaryAmount (above 200 cap)'],function(err, result){
+        if(err){
+            console.error(err);
+            return;
+        }
+   
+    
+    const grossSalary = parseFloat(result.salaryAmount)
 
-        if(isNaN(grossSalary) || grossSalary < 0 || grossSalary > 1000000){
-            console.log("Invalid Input.Please enter within the range of (0-1000000)");
-            rl.close();
+        if(isNaN(grossSalary) || grossSalary < 200 || !Number.isFinite(grossSalary)) {
+            console.log("Invalid Input.Please enter a valid Number or within range of above 200");
             return
         }
         const nhif = calculatenhif(grossSalary);
@@ -55,9 +58,10 @@ function SalaryGenerator(){
         console.log(`NHIF Deductions: ${nhif}`);
         console.log(`NSSF Deductions: ${nssf}`);
         console.log(`Payee(salary after deductions:) ${payee})`);
-        rl.close();
+        
 
-})
-    }
-    SalaryGenerator();
+});
+}
+    
+    salaryGenerator();
 

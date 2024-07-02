@@ -5,7 +5,8 @@ Write a function that prompts the user to input student marks. The input should 
         A > 79, B - 60 to 79, C -  59 to 49, D - 40 to 49, E - less 40.
 
         ## GETTING STARTED
->the first thing is to create an interface using redline for node to enable reading from the input.
+>the first thing is to create an interface using prompt to enable input 
+
 2: the second thing is to create a functions that will determine the grade of the student using if else statement to determine the grade 
 
 3:return grade
@@ -107,6 +108,6 @@ return nssf
 
         USAGE
 
-
+>inorder to view the output you will need to install prompt on your terminal (sudo prompt install)
 >go to terminal and enter node challenge3.js, you will recieve a prompt to enter the salary.
  the output will give the NHIF && NSSF deductions and the amount of money remaining after deductions
