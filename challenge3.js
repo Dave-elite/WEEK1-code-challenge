@@ -38,7 +38,7 @@ function calculatePayee(grossSalary, nhif, nssf){
 }
 //function to enable the user to input the salary amount to determine the total deductions and the net salary
 function salaryGenerator(){
-    prompt.get(['salaryAmount (above 200 cap)'],function(err, result){
+    prompt.get(['salaryAmount'],function(err, result){
         if(err){
             console.error(err);
             return;
@@ -47,8 +47,8 @@ function salaryGenerator(){
     
     const grossSalary = parseFloat(result.salaryAmount)
 
-        if(isNaN(grossSalary) || grossSalary < 200 || !Number.isFinite(grossSalary)) {
-            console.log("Invalid Input.Please enter a valid Number or within range of above 200");
+        if(isNaN(grossSalary) || grossSalary < 0 || !Number.isFinite(grossSalary)) {
+            console.log("Invalid Input.Please enter a valid Number above 0");
             return
         }
         const nhif = calculatenhif(grossSalary);
